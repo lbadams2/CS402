@@ -1,0 +1,69 @@
+Pre Lab:
+
+Step 6:
+Input Number	|	Output Number
+6		|	24
+7		|	28
+5		|	20
+0		|	0
+
+It multiplies the input by 4
+
+Step 7: the bits of the input are shifted left by 2
+
+
+Lab:
+
+Step 2:
+Symbol		|	Address
+main			x00400024
+
+Step 4:
+Symbol		|	Address
+main			x00400024
+
+Q1: 4 bytes
+
+Step 6:
+Label	|	Address		|	Native		|	Source		|
+		00400000		8fa40000		lw $4, 0($29)
+		00400004		27a50004		addiu $5, $29, 4
+		00400008		24a60004		addiu $6, $5, 4
+		0040000c		00041080		sll $2, $4, 2
+		00400010		00c23021		addu $6, $6, $2
+		00400014		0c100009		jal 0x00400024 [main]
+		00400018		00000000		nop
+		0040001c		3402000a		ori $2, $0, 10
+		00400020		0000000c		syscall
+		00400024		03e08021		addu $16, $31, $0
+		00400028		34020004		ori $2, $0, 4
+		0040002c		3c041000		lui $4, 4096 [msg1]
+		00400030		0000000c		syscall
+		00400034		34020005		ori $2, $0, 5
+
+Step 7:
+Label	|	Address		|	Native		|	Source		|
+		400004			27a50004		addiu $5, $29, 4
+		400008			24a60004		addiu $6, $5, 4
+		40000c			00041080		sll $2, $4, 2
+		400010			00c23021		addu $6, $6, $2
+		400014			0c100009		jal 0x00400024 [main]
+		400024			03e08021		addu $16, $31, $0
+		400028			34020004		ori $2, $0, 4
+		40002c			3c041000		lui $4, 4096 [msg1]
+		400030			0000000c		syscall
+		400034			34020005		ori $2, $0, 5
+		400038			0000000c		syscall
+		40003c			00404021		addu $8, $2, $0
+		400040			00084080		sll $8, $8, 2
+		400044			34020001		ori $2, $0, 1
+
+Q2: Because Step 7 is the runtime behavior of the program not the static representation of it in Step 6, so the jumps actually occur.
+
+Q3: The syscall changed 1 register, it could use many registers by just reading them without changing the value stored
+
+Q4: 400018
+
+Q5: The instruction stored in $s0 is the return address for main subroutine, so the instruction this address is holding will be executed after the last instruction in main which is 
+jr $ra # return from main
+
